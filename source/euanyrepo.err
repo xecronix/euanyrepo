@@ -1,0 +1,286 @@
+/home/ronald/dev/euanyrepo/source/euanyrepo.ex:100
+type_check failure, s is -1 
+
+
+Public & Export & Global & Local Variables
+
+ /usr/local/share/euphoria/include/std/datetime.e:
+    yydiff = 80'P'
+
+ /usr/local/share/euphoria/include/std/memconst.e:
+    DEP_really_works = 0
+    use_DEP = 1
+    FREE_RID = 2
+    kernel_dll = <no value>
+    memDLL_id = <no value>
+    VirtualAlloc_rid = <no value>
+    VirtualLock_rid = <no value>
+    VirtualUnlock_rid = <no value>
+    VirtualProtect_rid = <no value>
+    GetLastError_rid = <no value>
+    GetSystemInfo_rid = <no value>
+
+ /usr/local/share/euphoria/include/std/memory.e:
+    edges_only = <no value>
+    check_calls = 1
+    VirtualFree_rid = <no value>
+
+ /usr/local/share/euphoria/include/std/types.e:
+    Defined_Sets = {
+                     {98'b',99'c',100'd',102'f',103'g',104'h',106'j',107'k',
+108'l',109'm',110'n',112'p',113'q',114'r',115's',116't',118'v',119'w',120'x',
+121'y',122'z',66'B',67'C',68'D',70'F',71'G',72'H',74'J',75'K',76'L',77'M',
+78'N',80'P',81'Q',82'R',83'S',84'T',86'V',87'W',88'X',89'Y',90'Z'},
+                     {97'a',101'e',105'i',111'o',117'u',65'A',69'E',73'I',
+79'O',85'U'},
+                     {
+                       {48'0',57'9'},
+                       {65'A',70'F'},
+                       {97'a',102'f'}
+                     },
+                     {32' ',9,10,13,11,160},
+                     {
+                       {32' ',47'/'},
+                       {58':',63'?'},
+                       {91'[',96'`'},
+                       {123'{',126'~'}
+                     },
+                     {
+                       {32' ',126'~'}
+                     },
+                     {
+                       {32' ',126'~'},
+                       {32' ',32' '},
+                       {9,9},
+                       {10,10},
+                       {13,13},
+                       {8,8},
+                       {7,7}
+                     },
+                     {
+                       {97'a',122'z'}
+                     },
+                     {
+                       {65'A',90'Z'}
+                     },
+                     {
+                       {48'0',57'9'},
+                       {97'a',122'z'},
+                       {65'A',90'Z'}
+                     },
+                     {
+                       {48'0',57'9'},
+                       {97'a',122'z'},
+                       {65'A',90'Z'},
+                       {95'_',95'_'}
+                     },
+                     {
+                       {97'a',122'z'},
+                       {65'A',90'Z'}
+                     },
+                     {
+                       {0,127}
+                     },
+                     {
+                       {0,31},
+                       {127,127}
+                     },
+                     {
+                       {48'0',57'9'}
+                     },
+                     {
+                       {33'!',126'~'}
+                     },
+                     {
+                       {0,255}
+                     },
+                     {95'_'},
+                     {1,0}
+                   }
+
+ /usr/local/share/euphoria/include/std/machine.e:
+    FREE_ARRAY_RID = 1
+    page_size = 4096
+
+ /usr/local/share/euphoria/include/std/convert.e:
+    mem = 41209856
+    decimal_mark = 46'.'
+
+ /usr/local/share/euphoria/include/std/pretty.e:
+    pretty_end_col = <no value>
+    pretty_chars = <no value>
+    pretty_start_col = <no value>
+    pretty_level = <no value>
+    pretty_file = <no value>
+    pretty_ascii = <no value>
+    pretty_indent = <no value>
+    pretty_ascii_min = <no value>
+    pretty_ascii_max = <no value>
+    pretty_line_count = <no value>
+    pretty_line_max = <no value>
+    pretty_dots = <no value>
+    pretty_line_breaks = <no value>
+    pretty_printing = <no value>
+    pretty_fp_format = <no value>
+    pretty_int_format = <no value>
+    pretty_line = <no value>
+
+ /usr/local/share/euphoria/include/std/serialize.e:
+    mem0 = 45449216
+    mem1 = 45449217
+    mem2 = 45449218
+    mem3 = 45449219
+    mem4 = 45449220
+    mem5 = 45449221
+    mem6 = 45449222
+    mem7 = 45449223
+
+ /usr/local/share/euphoria/include/std/text.e:
+    lower_case_SET = {}
+    upper_case_SET = {}
+    encoding_NAME = {65'A',83'S',67'C',73'I',73'I'}
+
+ /usr/local/share/euphoria/include/std/io.e:
+    mem0 = 41295872
+    mem1 = 41295873
+    mem2 = 41295874
+    mem3 = 41295875
+
+ /usr/local/share/euphoria/include/std/fenv.e:
+    conv_table = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+32' ',0,0,0,1,0,0,0,0,0,8,0,0,0,0,0,16,0,0,0,0,4}
+    rev = {105'i',0,0,122'z',0,0,0,111'o',0,0,0,0,0,0,0,117'u',0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,101'e'}
+
+ /usr/local/share/euphoria/include/std/scinot.e:
+    NATIVE_FORMAT = 3
+
+ /usr/local/share/euphoria/include/std/get.e:
+    input_file = <no value>
+    input_string = <no value>
+    string_next = <no value>
+    ch = <no value>
+    leading_whitespace = <no value>
+
+ /usr/local/share/euphoria/include/std/datetime.e:
+    month_names = {
+                    {74'J',97'a',110'n',117'u',97'a',114'r',121'y'},
+                    {70'F',101'e',98'b',114'r',117'u',97'a',114'r',121'y'},
+                    {77'M',97'a',114'r',99'c',104'h'},
+                    {65'A',112'p',114'r',105'i',108'l'},
+                    {77'M',97'a',121'y'},
+                    {74'J',117'u',110'n',101'e'},
+                    {74'J',117'u',108'l',121'y'},
+                    {65'A',117'u',103'g',117'u',115's',116't'},
+                    {83'S',101'e',112'p',116't',101'e',109'm',98'b',101'e',
+114'r'},
+                    {79'O',99'c',116't',111'o',98'b',101'e',114'r'},
+                    {78'N',111'o',118'v',101'e',109'm',98'b',101'e',114'r'},
+                    {68'D',101'e',99'c',101'e',109'm',98'b',101'e',114'r'}
+                  }
+    month_abbrs = {
+                    {74'J',97'a',110'n'},
+                    {70'F',101'e',98'b'},
+                    {77'M',97'a',114'r'},
+                    {65'A',112'p',114'r'},
+                    {77'M',97'a',121'y'},
+                    {74'J',117'u',110'n'},
+                    {74'J',117'u',108'l'},
+                    {65'A',117'u',103'g'},
+                    {83'S',101'e',112'p'},
+                    {79'O',99'c',116't'},
+                    {78'N',111'o',118'v'},
+                    {68'D',101'e',99'c'}
+                  }
+    day_names = {
+                  {83'S',117'u',110'n',100'd',97'a',121'y'},
+                  {77'M',111'o',110'n',100'd',97'a',121'y'},
+                  {84'T',117'u',101'e',115's',100'd',97'a',121'y'},
+                  {87'W',101'e',100'd',110'n',101'e',115's',100'd',97'a',
+121'y'},
+                  {84'T',104'h',117'u',114'r',115's',100'd',97'a',121'y'},
+                  {70'F',114'r',105'i',100'd',97'a',121'y'},
+                  {83'S',97'a',116't',117'u',114'r',100'd',97'a',121'y'}
+                }
+    day_abbrs = {
+                  {83'S',117'u',110'n'},
+                  {77'M',111'o',110'n'},
+                  {84'T',117'u',101'e'},
+                  {87'W',101'e',100'd'},
+                  {84'T',104'h',117'u'},
+                  {70'F',114'r',105'i'},
+                  {83'S',97'a',116't'}
+                }
+    ampm = {
+             {65'A',77'M'},
+             {80'P',77'M'}
+           }
+
+ /usr/local/share/euphoria/include/std/filesys.e:
+    STAT_VER = 0
+    my_dir = -2
+    InitCurDir = {47'/',104'h',111'o',109'm',101'e',47'/',114'r',111'o',110'n',
+97'a',108'l',100'd',47'/',100'd',101'e',118'v',47'/',101'e',117'u',97'a',
+110'n',121'y',114'r',101'e',112'p',111'o',47'/',115's',111'o',117'u',114'r',
+99'c',101'e',47'/'}
+    file_counters = {}
+
+ /usr/local/share/euphoria/include/std/pipeio.e:
+    os_errno = 0
+
+ /home/ronald/dev/euanyrepo/source/euanyrepo.ex:
+    void = 0
+    InitialDir = {47'/',104'h',111'o',109'm',101'e',47'/',114'r',111'o',110'n',
+97'a',108'l',100'd',47'/',100'd',101'e',118'v',47'/',101'e',117'u',97'a',
+110'n',121'y',114'r',101'e',112'p',111'o',47'/',115's',111'o',117'u',114'r',
+99'c',101'e'}
+    f_debug = 3
+    softwareManager = {}
+    cmd = {
+            {101'e',117'u',105'i'},
+            {101'e',117'u',97'a',110'n',121'y',114'r',101'e',112'p',111'o',
+46'.',101'e',120'x'}
+          }
+    info = {
+             {},
+             {101'e',117'u',97'a',110'n',121'y',114'r',101'e',112'p',111'o',
+46'.',101'e',120'x'},
+             {101'e',117'u',97'a',110'n',121'y',114'r',101'e',112'p',111'o'},
+             {101'e',120'x'},
+             {}
+           }
+    s = -1
+    i = <no value>
+
+
+Traced lines leading up to the failure:
+
+/usr/local/share/euphoria/include/std/filesys.e:1209			elsif eu:find(ch, SLASHES) then
+/usr/local/share/euphoria/include/std/filesys.e:1213		end for
+/usr/local/share/euphoria/include/std/filesys.e:1206			ch = path[i]
+/usr/local/share/euphoria/include/std/filesys.e:1207			if period = 0 and ch = '.' then
+/usr/local/share/euphoria/include/std/filesys.e:1209			elsif eu:find(ch, SLASHES) then
+/usr/local/share/euphoria/include/std/filesys.e:1213		end for
+/usr/local/share/euphoria/include/std/filesys.e:1215		if slash > 0 then
+/usr/local/share/euphoria/include/std/filesys.e:1226		if period > 0 then
+/usr/local/share/euphoria/include/std/filesys.e:1227			file_name = path[slash+1..period-1]
+/usr/local/share/euphoria/include/std/filesys.e:1228			file_ext = path[period+1..$]
+/usr/local/share/euphoria/include/std/filesys.e:1229			file_full = file_name & '.' & file_ext
+/usr/local/share/euphoria/include/std/filesys.e:1235		if std_slash != 0 then
+/usr/local/share/euphoria/include/std/filesys.e:1250		return {dir_name, file_full, file_name, file_ext, drive_id }
+/home/ronald/dev/euanyrepo/source/euanyrepo.ex:95	void = chdir(info[PATH_DIR]) 
+/usr/local/share/euphoria/include/std/filesys.e:501		return machine_func(M_CHDIR, newdir)
+/home/ronald/dev/euanyrepo/source/euanyrepo.ex:96	InitialDir = current_dir() 
+/usr/local/share/euphoria/include/std/filesys.e:465		return machine_func(M_CURRENT_DIR, 0)
+/home/ronald/dev/euanyrepo/source/euanyrepo.ex:97	f_debug = open(InitialDir&SLASH&info[PATH_BASENAME]&".log", "w") 
+/home/ronald/dev/euanyrepo/source/euanyrepo.ex:98	crash_file(InitialDir&SLASH&info[PATH_BASENAME]&".err") 
+/usr/local/share/euphoria/include/std/error.e:97		machine_proc(M_CRASH_FILE, file_path)
+/usr/local/share/euphoria/include/std/error.e:98	end procedure
+/usr/local/share/euphoria/include/std/io.e:1127		if sequence(file) then
+/usr/local/share/euphoria/include/std/io.e:1128			if length(file) = 0 then
+/usr/local/share/euphoria/include/std/io.e:1131				fn = open(file, "r")
+/usr/local/share/euphoria/include/std/io.e:1136		if fn < 0 then return -1 end if
+
+
