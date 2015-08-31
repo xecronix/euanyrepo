@@ -1,0 +1,178 @@
+<!DOCTYPE html 
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+ <title></title>
+ <link rel="stylesheet" media="screen, projection, print" type="text/css" href="style.css"/>
+<!-- source="eushouldtest.creole" -->
+</head>
+<body>
+
+<p> 
+<!-- EuShouldTest.creole -->
+
+<!-- EuShouldTest.creole -->
+
+<a name="_1_eushouldtesteuphoriabehaviordriventesting"></a><a name="eushouldtesteuphoriabehaviordriventesting"></a><h1>EUShouldTest -- Euphoria Behavior Driven Testing</h1>
+<p> This is behavior testing implemented in Euphoria.  Intended as an extremely low barrier to testing these tools make getting started with testing as easy as possible.  In addition to a very small library of testing and reporting tools, the system also relies on the 'make' program to run tests.  </p>
+
+<p> There are 3 testing theories that we're going to cover in documenting how to use EUShouldTest. </p>
+<ul><li>Unit Testing
+</li><li>Behavior Testing
+</li><li>Integration Testing
+</li></ul>
+<p>I'll define each one in the manner in which I approach testing.  </p>
+
+<!-- EuShouldTest.creole -->
+
+<a name="_2_unittesting"></a><a name="unittesting"></a><h2>Unit Testing</h2>
+<p> The idea behind this type of testing is that a very small unit of code should be testable.  If every small piece of code does exactly what it should do, then it should be possible to ensure that the program as a whole works as intended.  </p>
+
+<p> This type of testing is often the easiest  to get started with when implementing a new project from scratch.  Let's look at an example of how to use EUShouldTest to perform unit testing.</p>
+
+<pre class="examplecode"><font color="#330033">#!/usr/bin/env eui</font>
+<font color="#0000FF">include </font><font color="#330033">package_manager.e </font>
+<font color="#0000FF">include </font><font color="#330033">std/pretty.e</font>
+<font color="#0000FF">include </font><font color="#330033">eushouldtest.e</font>
+
+<font color="#0000FF">function </font><font color="#330033">test_isInstalled</font><font color="#880033">()</font>
+<font color="#0000FF">	sequence </font><font color="#330033">installedPackage = </font><font color="#330033">"gcc"</font>
+<font color="#0000FF">	sequence </font><font color="#330033">notInstalledPackage = </font><font color="#330033">"chinese-calendar"</font>
+<font color="#0000FF">	sequence </font><font color="#330033">should</font>
+<font color="#0000FF">	sequence </font><font color="#330033">but</font>
+<font color="#0000FF">	atom </font><font color="#330033">results</font>
+<font color="#0000FF">	atom </font><font color="#330033">pass = 1</font>
+	
+<font color="#330033">	should = </font><font color="#0000FF">sprintf</font><font color="#880033">(</font><font color="#330033">"package %s should be installed"</font><font color="#330033">,  </font><font color="#993333">{</font><font color="#330033">installedPackage</font><font color="#993333">}</font><font color="#880033">)</font>
+<font color="#330033">	but = </font><font color="#330033">"but, package_manager isInstalled couldn't find it."</font>
+<font color="#330033">	results = isInstalled</font><font color="#880033">(</font><font color="#330033">installedPackage</font><font color="#880033">) </font><font color="#330033">= 1</font>
+<font color="#330033">	confirm</font><font color="#880033">(</font><font color="#330033">results, should, but</font><font color="#880033">)</font>
+<font color="#330033">	pass = pass </font><font color="#0000FF">and </font><font color="#330033">results</font>
+	
+<font color="#330033">	should = </font><font color="#0000FF">sprintf</font><font color="#880033">(</font><font color="#330033">"package %s should not be installed"</font><font color="#330033">,  </font><font color="#993333">{</font><font color="#330033">notInstalledPackage</font><font color="#993333">}</font><font color="#880033">)</font>
+<font color="#330033">	but = </font><font color="#330033">"but, package_manager claims to have found it."</font>
+<font color="#330033">	results = isInstalled</font><font color="#880033">(</font><font color="#330033">notInstalledPackage</font><font color="#880033">) </font><font color="#330033">= 0</font>
+<font color="#330033">	confirm</font><font color="#880033">(</font><font color="#330033">results, should, but</font><font color="#880033">)</font>
+<font color="#330033">	pass = pass </font><font color="#0000FF">and </font><font color="#330033">results</font>
+	
+<font color="#0000FF">	return </font><font color="#330033">pass</font>
+<font color="#0000FF">end function</font>
+
+<font color="#330033">confirmReport</font><font color="#880033">(</font><font color="#330033">test_isInstalled</font><font color="#993333">()</font><font color="#330033">, </font><font color="#330033">"test_isInstalled"</font><font color="#880033">)</font>
+<font color="#330033">totalsReport</font><font color="#880033">(</font><font color="#330033">"test_package_manager"</font><font color="#880033">)</font>
+
+</pre>
+
+<p> Let's break this down line by line so we can see exactly what's going on in this code.</p>
+
+<pre class="examplecode"><font color="#330033">#!/usr/bin/env eui</font>
+</pre>
+
+<p> The code is targeted at a Linux environment.  This comment is a shell comment needed to make the script executable. </p>
+
+<pre class="examplecode"><font color="#0000FF">include </font><font color="#330033">package_manager.e</font>
+<font color="#0000FF">include </font><font color="#330033">std/pretty.e</font>
+<font color="#0000FF">include </font><font color="#330033">eushouldtest.e</font>
+</pre>
+
+<p> The first line here is the library we're going to test.  The second includes pretty_print.  I use that to  create a string from a sequence.  And finally, we need the testing tools.  </p>
+
+<pre class="examplecode"><font color="#0000FF">function </font><font color="#330033">test_isInstalled</font><font color="#880033">()</font>
+</pre>
+
+<p> The function is named with "test_" and then the name of the function or procedure you intend to test.  It is often the case that the smallest unit of code you'll intend to test is a function or procedure.  So this naming convention makes it easy to see what this function is for.  It's a test and it's going to test the isInstalled function. </p>
+
+<p> One thing you should note about this test is that it does not take any arguments.  There are as many opinions on how to write good tests as there are developers writing tests.  I'm of the opinion that a good test needs no data from any source outside of the function.  Or put another way, the test should know how to either create the data it needs or go get the data it needs to perform the test.  This is why test_ functions take in no arguments.  This idea is common among several testing tools.  </p>
+
+<pre class="examplecode"><font color="#0000FF">sequence </font><font color="#330033">installedPackage = </font><font color="#330033">"gcc"</font>
+<font color="#0000FF">sequence </font><font color="#330033">notInstalledPackage = </font><font color="#330033">"chinese-calendar"</font>
+<font color="#0000FF">sequence </font><font color="#330033">should</font>
+<font color="#0000FF">sequence </font><font color="#330033">but</font>
+<font color="#0000FF">atom </font><font color="#330033">results</font>
+<font color="#0000FF">atom </font><font color="#330033">pass = 1</font>
+</pre>
+
+<p> Here I'm creating the data I need to do this test.  I'm going to look for the 2 packages gcc and chinese-calendar.  On my computer I'm certain that one is installed and the other package is not installed.  If I wanted to create a more robust test I could execute some combination of shell commands to find one package that is installed and to find one that isn't.  In fact, that's what I had to do to come up with these to choices.  But since I'm relatively certain that any machine that I'm personally going to run this test on will have gcc and will not have chinese-calendar, I'll choose to keep these test this simple.  At least until such time as this decision no longer suites me.  </p>
+
+<p> The next four lines I define some variables that I intend to use during testing.  I personally like the way these variables will read in the context of the code.  The pass variable will be our return value.</p>
+
+<pre class="examplecode"><font color="#330033">should = </font><font color="#0000FF">sprintf</font><font color="#880033">(</font><font color="#330033">"package %s should be installed"</font><font color="#330033">,  </font><font color="#993333">{</font><font color="#330033">installedPackage</font><font color="#993333">}</font><font color="#880033">)</font>
+<font color="#330033">but = </font><font color="#330033">"but, package_manager isInstalled couldn't find it."</font>
+<font color="#330033">results = isInstalled</font><font color="#880033">(</font><font color="#330033">installedPackage</font><font color="#880033">) </font><font color="#330033">= 1</font>
+<font color="#330033">confirm</font><font color="#880033">(</font><font color="#330033">results, should, but</font><font color="#880033">)</font>
+<font color="#330033">pass = pass </font><font color="#0000FF">and </font><font color="#330033">results</font>
+</pre>
+
+<p> We are going to confirm the function does or doesn't do something.  A single test may confirm many things in order to determine that the unit of code is tested to be correct.  The variable "should" contains information intended for a log or report about what should be going on now.  The variable "but" contains information stating what should have happened didn't actually happen.  And the variable "results" should always evaluate to a 0 to indicate a failure or a non zero integer to indicate that there was no failure.   </p>
+
+<p> The confirm procedure is made available from eushouldtest.e.  It will print a message to STDOUT or STDERR and the function will keep track of how many successful/unsuccessful confirm calls occurred during the tests.</p>
+
+<p> Finally, we'll keep track of whether or not we have any failures.  In this case, we don't want to do anything about a failure, but in other tests we may choose to abort testing, manipulate data, clean up resources or other things.  But in this ideal case it's safe to just continue testing.</p>
+
+<pre class="examplecode"><font color="#330033">should = </font><font color="#0000FF">sprintf</font><font color="#880033">(</font><font color="#330033">"package %s should not be installed"</font><font color="#330033">,  </font><font color="#993333">{</font><font color="#330033">notInstalledPackage</font><font color="#993333">}</font><font color="#880033">)</font>
+<font color="#330033">but = </font><font color="#330033">"but, package_manager claims to have found it."</font>
+<font color="#330033">results = isInstalled</font><font color="#880033">(</font><font color="#330033">notInstalledPackage</font><font color="#880033">) </font><font color="#330033">= 0 </font><font color="#FF0055">-- results will be true if package is not installed</font>
+<font color="#330033">confirm</font><font color="#880033">(</font><font color="#330033">results, should, but</font><font color="#880033">)</font>
+<font color="#330033">pass = pass </font><font color="#0000FF">and </font><font color="#330033">results</font>
+</pre>
+
+<p> Notice that we want to perform a second confirm.  This time we want to confirm that the function will not report a success if it can't find a package.  So results is true (or rather not 0) if and only of isInstalled is 0.  Or in other words, isInstalled wasn't supposed to find the package.  So if it reports back that it could not find the package then it did what is was supposed to do.</p>
+
+<pre class="examplecode"><font color="#330033">confirmReport</font><font color="#880033">(</font><font color="#330033">test_isInstalled</font><font color="#993333">()</font><font color="#330033">, </font><font color="#330033">"test_isInstalled"</font><font color="#880033">)</font>
+<font color="#330033">totalsReport</font><font color="#880033">(</font><font color="#330033">"test_package_manager"</font><font color="#880033">)</font>
+</pre>
+
+<p> After each test_ function called, you should call the confirmReport function.  This will print a message indicating that the test was complete, it's status, and reset some counters in preparation of the next test.  It will also be used to keep track of how many tests were run.</p>
+
+<p> A single test file can contain more than one test_ function.  A call to the totalsReport is an indication that all tests in this file have been run.  This will print a nice report indicating how many tests passed or failed.</p>
+
+<p> Common to all testing paradigms I'm discussing, the test file is expected to be a stand alone executable program.  Just like any other Euphoria program, you can add or remove features as it suites your needs.  In an ideal world, I wouldn't want my tests files to become more complex than the structure I'm showing here.  There may be dozens of test_ functions in this file but the pattern I hope to keep consistent.  This pattern is: </p>
+<ul><li>include the files/libs I want to test
+</li><li>write one or more tests.
+</li><li>In each test confirm one or more "things" about the code behavior
+</li><li>run all the tests in this file
+</li><li>print a report
+</li><li>destroy any data created to run the test
+</li></ul>
+<p>But, this is the real world and not necessarily the ideal.  So, you may want to implement other features in your tests.  For example, the ability to run a single test in a test file.  Or you may want to use test_ functions again in another test file.  I believe this system allows for the flexibility to implement these types of features if required.</p>
+
+<!-- EuShouldTest.creole -->
+
+<a name="_3_runningtests"></a><a name="runningtests"></a><h2>Running Tests</h2>
+<p> Each test file should be an executable unit of code.  So there should be at least 2 ways to run tests.  The first is directly from the command line.  The second is via a 'make' file.  The advantage of a make file is that it's an easy way to make all your test files run in a automated fashion.  We'll talk more about this when we talk about integration testing.  Also, using make you can also control what exactly will happen in what order, establish dependencies, gracefully handle failures, build things you need, and so on.  Let's look at a simple Makefile that can be used to run these tests.  </p>
+
+<p> 
+<pre>INTERPRETER = eui
+
+all: test_package_manager
+test_package_manager: test_oshelper
+	${INTERPRETER} test_package_manager.ex
+test_oshelper:
+	${INTERPRETER} test_oshelper.ex
+</pre>
+
+<p> See? It's easy!  Just start right away, stay diligent and the task will not become overwhelming.  I have a small script that generates this Makefile.  I run it every time I add a new test file.</p>
+
+<p> And finnaly, let's look at an output.</p>
+
+<p> 
+<pre>PASS packMan should have a length greater than 0
+PASS packMan should know what yum is
+PASS Test test_getPackageManagers reporting [2] confirm calls with [2] passes and [0] failures
+PASS package gcc should be installed
+PASS package chinese-calendar should not be installed
+PASS Test test_isInstalled reporting [2] confirm calls with [2] passes and [0] failures
+PASS Ran a total of [2] tests in file test_package_manager. [2] passed and [0] failed
+</pre>
+
+<!-- EuShouldTest.creole -->
+
+<a name="_4_behaviortesting"></a><a name="behaviortesting"></a><h2>Behavior Testing</h2>
+<!-- EuShouldTest.creole -->
+
+<a name="_5_integrationtesting"></a><a name="integrationtesting"></a><h2>Integration Testing</h2></p></p></p>
+</body></html>

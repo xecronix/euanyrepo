@@ -1,0 +1,167 @@
+%%disallow={camelcase}
+
+!!CONTEXT:EuShouldTest.creole
+%%output = EuShouldTest.creole
+
+=EUShouldTest -- Euphoria Behavior Driven Testing
+
+This is behavior testing implemented in Euphoria.  Intended as an extremely low
+barrier to testing these tools make getting started with testing as easy as possible.  In 
+addition to a very small library of testing and reporting tools, the system also
+relies on the 'make' program to run tests.  
+
+There are 3 testing theories that we're going to cover in documenting how to use EUShouldTest.
+* Unit Testing
+* Behavior Testing
+* Integration Testing
+
+I'll define each one in the manner in which I approach testing.  
+
+==Unit Testing
+The idea behind this type of testing is that a very small unit of code should be testable.  If every small piece of code does exactly what it should do, then it should be possible to ensure that the program as a whole works as intended.  
+
+This type of testing is often the easiest  to get started with when implementing a new project from scratch.  Let's look at an example of how to use EUShouldTest to perform unit testing.
+
+<eucode>
+#!/usr/bin/env eui
+include package_manager.e 
+include std/pretty.e
+include eushouldtest.e
+
+function test_isInstalled()
+	sequence installedPackage = "gcc"
+	sequence notInstalledPackage = "chinese-calendar"
+	sequence should
+	sequence but
+	atom results
+	atom pass = 1
+	
+	should = sprintf("package %s should be installed",  {installedPackage})
+	but = "but, package_manager isInstalled couldn't find it."
+	results = isInstalled(installedPackage) = 1
+	confirm(results, should, but)
+	pass = pass and results
+	
+	should = sprintf("package %s should not be installed",  {notInstalledPackage})
+	but = "but, package_manager claims to have found it."
+	results = isInstalled(notInstalledPackage) = 0
+	confirm(results, should, but)
+	pass = pass and results
+	
+	return pass
+end function
+
+confirmReport(test_isInstalled(), "test_isInstalled")
+totalsReport("test_package_manager")
+
+</eucode>
+
+Let's break this down line by line so we can see exactly what's going on in this code.
+
+<eucode>
+#!/usr/bin/env eui
+</eucode>
+
+The code is targeted at a Linux environment.  This comment is a shell comment needed to make the script executable.
+<eucode>
+include package_manager.e 
+include std/pretty.e
+include eushouldtest.e
+</eucode>
+
+The first line here is the library we're going to test.  The second includes pretty_print.  I use that to  create a string from a sequence.  And finally, we need the testing tools.  
+
+<eucode>
+function test_isInstalled()
+</eucode>
+
+The function is named with "test_" and then the name of the function or procedure you intend to test.  It is often the case that the smallest unit of code you'll intend to test is a function or procedure.  So this naming convention makes it easy to see what this function is for.  It's a test and it's going to test the isInstalled function. 
+
+One thing you should note about this test is that it does not take any arguments.  There are as many opinions on how to write good tests as there are developers writing tests.  I'm of the opinion that a good test needs no data from any source outside of the function.  Or put another way, the test should know how to either create the data it needs or go get the data it needs to perform the test.  This is why test_ functions take in no arguments.  This idea is common among several testing tools.  
+
+<eucode>
+sequence installedPackage = "gcc"
+sequence notInstalledPackage = "chinese-calendar"
+sequence should
+sequence but
+atom results
+atom pass = 1
+</eucode>
+
+Here I'm creating the data I need to do this test.  I'm going to look for the 2 packages gcc and chinese-calendar.  On my computer I'm certain that one is installed and the other package is not installed.  If I wanted to create a more robust test I could execute some combination of shell commands to find one package that is installed and to find one that isn't.  In fact, that's what I had to do to come up with these to choices.  But since I'm relatively certain that any machine that I'm personally going to run this test on will have gcc and will not have chinese-calendar, I'll choose to keep these test this simple.  At least until such time as this decision no longer suites me.  
+
+The next four lines I define some variables that I intend to use during testing.  I personally like the way these variables will read in the context of the code.  The pass variable will be our return value.
+
+<eucode>
+should = sprintf("package %s should be installed",  {installedPackage})
+but = "but, package_manager isInstalled couldn't find it."
+results = isInstalled(installedPackage) = 1
+confirm(results, should, but)
+pass = pass and results
+</eucode>
+
+We are going to confirm the function does or doesn't do something.  A single test may confirm many things in order to determine that the unit of code is tested to be correct.  The variable "should" contains information intended for a log or report about what should be going on now.  The variable "but" contains information stating what should have happened didn't actually happen.  And the variable "results" should always evaluate to a 0 to indicate a failure or a non zero integer to indicate that there was no failure.   
+
+The confirm procedure is made available from eushouldtest.e.  It will print a message to STDOUT or STDERR and the function will keep track of how many successful/unsuccessful confirm calls occurred during the tests.
+
+Finally, we'll keep track of whether or not we have any failures.  In this case, we don't want to do anything about a failure, but in other tests we may choose to abort testing, manipulate data, clean up resources or other things.  But in this ideal case it's safe to just continue testing.
+
+<eucode>
+should = sprintf("package %s should not be installed",  {notInstalledPackage})
+but = "but, package_manager claims to have found it."
+results = isInstalled(notInstalledPackage) = 0 -- results will be true if package is not installed
+confirm(results, should, but)
+pass = pass and results
+</eucode>
+
+Notice that we want to perform a second confirm.  This time we want to confirm that the function will not report a success if it can't find a package.  So results is true (or rather not 0) if and only of isInstalled is 0.  Or in other words, isInstalled wasn't supposed to find the package.  So if it reports back that it could not find the package then it did what is was supposed to do.
+
+<eucode>
+confirmReport(test_isInstalled(), "test_isInstalled")
+totalsReport("test_package_manager")
+</eucode>
+
+After each test_ function called, you should call the confirmReport function.  This will print a message indicating that the test was complete, it's status, and reset some counters in preparation of the next test.  It will also be used to keep track of how many tests were run.
+
+A single test file can contain more than one test_ function.  A call to the totalsReport is an indication that all tests in this file have been run.  This will print a nice report indicating how many tests passed or failed.
+
+Common to all testing paradigms I'm discussing, the test file is expected to be a stand alone executable program.  Just like any other Euphoria program, you can add or remove features as it suites your needs.  In an ideal world, I wouldn't want my tests files to become more complex than the structure I'm showing here.  There may be dozens of test_ functions in this file but the pattern I hope to keep consistent.  This pattern is: 
+
+* include the files/libs I want to test
+* write one or more tests.
+* In each test confirm one or more "things" about the code behavior
+* run all the tests in this file
+* print a report
+* destroy any data created to run the test
+
+But, this is the real world and not necessarily the ideal.  So, you may want to implement other features in your tests.  For example, the ability to run a single test in a test file.  Or you may want to use test_ functions again in another test file.  I believe this system allows for the flexibility to implement these types of features if required.
+
+==Running Tests
+Each test file should be an executable unit of code.  So there should be at least 2 ways to run tests.  The first is directly from the command line.  The second is via a 'make' file.  The advantage of a make file is that it's an easy way to make all your test files run in a automated fashion.  We'll talk more about this when we talk about integration testing.  Also, using make you can also control what exactly will happen in what order, establish dependencies, gracefully handle failures, build things you need, and so on.  Let's look at a simple Makefile that can be used to run these tests.  
+
+{{{
+INTERPRETER = eui
+
+all: test_package_manager
+test_package_manager: test_oshelper
+	${INTERPRETER} test_package_manager.ex
+test_oshelper:
+	${INTERPRETER} test_oshelper.ex
+}}}
+
+See? It's easy!  Just start right away, stay diligent and the task will not become overwhelming.  I have a small script that generates this Makefile.  I run it every time I add a new test file.
+
+And finnaly, let's look at an output.
+
+{{{
+PASS packMan should have a length greater than 0
+PASS packMan should know what yum is
+PASS Test test_getPackageManagers reporting [2] confirm calls with [2] passes and [0] failures
+PASS package gcc should be installed
+PASS package chinese-calendar should not be installed
+PASS Test test_isInstalled reporting [2] confirm calls with [2] passes and [0] failures
+PASS Ran a total of [2] tests in file test_package_manager. [2] passed and [0] failed
+}}}
+
+==Behavior Testing
+==Integration Testing
