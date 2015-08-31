@@ -121,9 +121,65 @@ confirmReport(test_isInstalled(), "test_isInstalled")
 totalsReport("test_package_manager")
 </eucode>
 
-After each test_ function called, you should call the confirmReport function.  This will print a message indicating that the test was complete, it's status, and reset some counters in preparation of the next test.  It will also be used to keep track of how many tests were run.
+After each test_ function called, you should call the confirmReport function.  This will print a message indicating that the test was complete, it's status, and reset some counters in preparation of the next test.  It will also be used to keep track of how many tests were run.  A call to the totalsReport is an indication that all tests in this file have been run.  This will print a nice report indicating how many tests passed or failed.
+<eucode>
+#!/usr/bin/env eui
+include package_manager.e 
+include std/pretty.e
+include eushouldtest.e
+function test_getPackageManagers()
+	
+	sequence packMan = getPackageManagers()
+	sequence prettyPackMan = pretty_sprint(packMan,{3})
+	sequence should
+	sequence but
+	atom results
+	atom pass = 1
+	
+	should = "packMan should have a length greater than 0"
+	but = "but, packMan was of length 0"
+	results = length(packMan)
+	confirm(results, should, but)
+	pass = pass and results
+	
+	should = "packMan should know what yum is"
+	but = sprintf("but, packMan does not [%s]", {prettyPackMan})
+	results = match("yum", prettyPackMan)
+	confirm(results, should, but)
+	pass = pass and results
+	
+	return pass
+end function
 
-A single test file can contain more than one test_ function.  A call to the totalsReport is an indication that all tests in this file have been run.  This will print a nice report indicating how many tests passed or failed.
+function test_isInstalled()
+	sequence installedPackage = "gcc"
+	sequence notInstalledPackage = "chinese-calendar"
+	sequence should
+	sequence but
+	atom results
+	atom pass = 1
+	
+	should = sprintf("package %s should be installed",  {installedPackage})
+	but = "but, package_manager isInstalled couldn't find it."
+	results = isInstalled(installedPackage) = 1
+	confirm(results, should, but)
+	pass = pass and results
+	
+	should = sprintf("package %s should not be installed",  {notInstalledPackage})
+	but = "but, package_manager claims to have found it."
+	results = isInstalled(notInstalledPackage) = 0
+	confirm(results, should, but)
+	pass = pass and results
+	
+	return pass
+end function
+
+confirmReport(test_getPackageManagers(), "test_getPackageManagers")
+confirmReport(test_isInstalled(), "test_isInstalled")
+totalsReport("test_package_manager")
+</eucode>
+
+A single test file can contain more than one test_ function.  
 
 Common to all testing paradigms I'm discussing, the test file is expected to be a stand alone executable program.  Just like any other Euphoria program, you can add or remove features as it suites your needs.  In an ideal world, I wouldn't want my tests files to become more complex than the structure I'm showing here.  There may be dozens of test_ functions in this file but the pattern I hope to keep consistent.  This pattern is: 
 
@@ -134,7 +190,7 @@ Common to all testing paradigms I'm discussing, the test file is expected to be 
 * print a report
 * destroy any data created to run the test
 
-But, this is the real world and not necessarily the ideal.  So, you may want to implement other features in your tests.  For example, the ability to run a single test in a test file.  Or you may want to use test_ functions again in another test file.  I believe this system allows for the flexibility to implement these types of features if required.
+This pattern works very well for most small projects without introducing much in the way of complexity.  I'll define a small project as having 3 or less developers and 500 or less confirm calls.  But, this is the real world and not necessarily the ideal.  Additionally, sometimes small projects balloon into large ones.  So, you may want to implement other features in your tests.  For example, the ability to run a single test in a test file.  Or you may want to use test_ functions again in another test file.  I believe this system allows for the flexibility to implement these types of features if required.  We'll talk about how this can be done later as the documentation progresses into more advanced features.
 
 ==Running Tests
 Each test file should be an executable unit of code.  So there should be at least 2 ways to run tests.  The first is directly from the command line.  The second is via a 'make' file.  The advantage of a make file is that it's an easy way to make all your test files run in a automated fashion.  We'll talk more about this when we talk about integration testing.  Also, using make you can also control what exactly will happen in what order, establish dependencies, gracefully handle failures, build things you need, and so on.  Let's look at a simple Makefile that can be used to run these tests.  

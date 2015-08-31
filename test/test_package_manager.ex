@@ -2,7 +2,6 @@
 include package_manager.e 
 include std/pretty.e
 include eushouldtest.e
-with trace
 function test_getPackageManagers()
 	
 	sequence packMan = getPackageManagers()

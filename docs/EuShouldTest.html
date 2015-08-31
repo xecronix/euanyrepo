@@ -126,9 +126,65 @@
 <font color="#330033">totalsReport</font><font color="#880033">(</font><font color="#330033">"test_package_manager"</font><font color="#880033">)</font>
 </pre>
 
-<p> After each test_ function called, you should call the confirmReport function.  This will print a message indicating that the test was complete, it's status, and reset some counters in preparation of the next test.  It will also be used to keep track of how many tests were run.</p>
+<p> After each test_ function called, you should call the confirmReport function.  This will print a message indicating that the test was complete, it's status, and reset some counters in preparation of the next test.  It will also be used to keep track of how many tests were run.  A call to the totalsReport is an indication that all tests in this file have been run.  This will print a nice report indicating how many tests passed or failed. </p>
 
-<p> A single test file can contain more than one test_ function.  A call to the totalsReport is an indication that all tests in this file have been run.  This will print a nice report indicating how many tests passed or failed.</p>
+<pre class="examplecode"><font color="#330033">#!/usr/bin/env eui</font>
+<font color="#0000FF">include </font><font color="#330033">package_manager.e </font>
+<font color="#0000FF">include </font><font color="#330033">std/pretty.e</font>
+<font color="#0000FF">include </font><font color="#330033">eushouldtest.e</font>
+<font color="#0000FF">function </font><font color="#330033">test_getPackageManagers</font><font color="#880033">()</font>
+	
+<font color="#0000FF">	sequence </font><font color="#330033">packMan = getPackageManagers</font><font color="#880033">()</font>
+<font color="#0000FF">	sequence </font><font color="#330033">prettyPackMan = pretty_sprint</font><font color="#880033">(</font><font color="#330033">packMan,</font><font color="#993333">{</font><font color="#330033">3</font><font color="#993333">}</font><font color="#880033">)</font>
+<font color="#0000FF">	sequence </font><font color="#330033">should</font>
+<font color="#0000FF">	sequence </font><font color="#330033">but</font>
+<font color="#0000FF">	atom </font><font color="#330033">results</font>
+<font color="#0000FF">	atom </font><font color="#330033">pass = 1</font>
+	
+<font color="#330033">	should = </font><font color="#330033">"packMan should have a length greater than 0"</font>
+<font color="#330033">	but = </font><font color="#330033">"but, packMan was of length 0"</font>
+<font color="#330033">	results = </font><font color="#0000FF">length</font><font color="#880033">(</font><font color="#330033">packMan</font><font color="#880033">)</font>
+<font color="#330033">	confirm</font><font color="#880033">(</font><font color="#330033">results, should, but</font><font color="#880033">)</font>
+<font color="#330033">	pass = pass </font><font color="#0000FF">and </font><font color="#330033">results</font>
+	
+<font color="#330033">	should = </font><font color="#330033">"packMan should know what yum is"</font>
+<font color="#330033">	but = </font><font color="#0000FF">sprintf</font><font color="#880033">(</font><font color="#330033">"but, packMan does not [%s]"</font><font color="#330033">, </font><font color="#993333">{</font><font color="#330033">prettyPackMan</font><font color="#993333">}</font><font color="#880033">)</font>
+<font color="#330033">	results = </font><font color="#0000FF">match</font><font color="#880033">(</font><font color="#330033">"yum"</font><font color="#330033">, prettyPackMan</font><font color="#880033">)</font>
+<font color="#330033">	confirm</font><font color="#880033">(</font><font color="#330033">results, should, but</font><font color="#880033">)</font>
+<font color="#330033">	pass = pass </font><font color="#0000FF">and </font><font color="#330033">results</font>
+	
+<font color="#0000FF">	return </font><font color="#330033">pass</font>
+<font color="#0000FF">end function</font>
+
+<font color="#0000FF">function </font><font color="#330033">test_isInstalled</font><font color="#880033">()</font>
+<font color="#0000FF">	sequence </font><font color="#330033">installedPackage = </font><font color="#330033">"gcc"</font>
+<font color="#0000FF">	sequence </font><font color="#330033">notInstalledPackage = </font><font color="#330033">"chinese-calendar"</font>
+<font color="#0000FF">	sequence </font><font color="#330033">should</font>
+<font color="#0000FF">	sequence </font><font color="#330033">but</font>
+<font color="#0000FF">	atom </font><font color="#330033">results</font>
+<font color="#0000FF">	atom </font><font color="#330033">pass = 1</font>
+	
+<font color="#330033">	should = </font><font color="#0000FF">sprintf</font><font color="#880033">(</font><font color="#330033">"package %s should be installed"</font><font color="#330033">,  </font><font color="#993333">{</font><font color="#330033">installedPackage</font><font color="#993333">}</font><font color="#880033">)</font>
+<font color="#330033">	but = </font><font color="#330033">"but, package_manager isInstalled couldn't find it."</font>
+<font color="#330033">	results = isInstalled</font><font color="#880033">(</font><font color="#330033">installedPackage</font><font color="#880033">) </font><font color="#330033">= 1</font>
+<font color="#330033">	confirm</font><font color="#880033">(</font><font color="#330033">results, should, but</font><font color="#880033">)</font>
+<font color="#330033">	pass = pass </font><font color="#0000FF">and </font><font color="#330033">results</font>
+	
+<font color="#330033">	should = </font><font color="#0000FF">sprintf</font><font color="#880033">(</font><font color="#330033">"package %s should not be installed"</font><font color="#330033">,  </font><font color="#993333">{</font><font color="#330033">notInstalledPackage</font><font color="#993333">}</font><font color="#880033">)</font>
+<font color="#330033">	but = </font><font color="#330033">"but, package_manager claims to have found it."</font>
+<font color="#330033">	results = isInstalled</font><font color="#880033">(</font><font color="#330033">notInstalledPackage</font><font color="#880033">) </font><font color="#330033">= 0</font>
+<font color="#330033">	confirm</font><font color="#880033">(</font><font color="#330033">results, should, but</font><font color="#880033">)</font>
+<font color="#330033">	pass = pass </font><font color="#0000FF">and </font><font color="#330033">results</font>
+	
+<font color="#0000FF">	return </font><font color="#330033">pass</font>
+<font color="#0000FF">end function</font>
+
+<font color="#330033">confirmReport</font><font color="#880033">(</font><font color="#330033">test_getPackageManagers</font><font color="#993333">()</font><font color="#330033">, </font><font color="#330033">"test_getPackageManagers"</font><font color="#880033">)</font>
+<font color="#330033">confirmReport</font><font color="#880033">(</font><font color="#330033">test_isInstalled</font><font color="#993333">()</font><font color="#330033">, </font><font color="#330033">"test_isInstalled"</font><font color="#880033">)</font>
+<font color="#330033">totalsReport</font><font color="#880033">(</font><font color="#330033">"test_package_manager"</font><font color="#880033">)</font>
+</pre>
+
+<p> A single test file can contain more than one test_ function.  </p>
 
 <p> Common to all testing paradigms I'm discussing, the test file is expected to be a stand alone executable program.  Just like any other Euphoria program, you can add or remove features as it suites your needs.  In an ideal world, I wouldn't want my tests files to become more complex than the structure I'm showing here.  There may be dozens of test_ functions in this file but the pattern I hope to keep consistent.  This pattern is: </p>
 <ul><li>include the files/libs I want to test
@@ -138,7 +194,7 @@
 </li><li>print a report
 </li><li>destroy any data created to run the test
 </li></ul>
-<p>But, this is the real world and not necessarily the ideal.  So, you may want to implement other features in your tests.  For example, the ability to run a single test in a test file.  Or you may want to use test_ functions again in another test file.  I believe this system allows for the flexibility to implement these types of features if required.</p>
+<p>This pattern works very well for most small projects without introducing much in the way of complexity.  I'll define a small project as having 3 or less developers and 500 or less confirm calls.  But, this is the real world and not necessarily the ideal.  Additionally, sometimes small projects balloon into large ones.  So, you may want to implement other features in your tests.  For example, the ability to run a single test in a test file.  Or you may want to use test_ functions again in another test file.  I believe this system allows for the flexibility to implement these types of features if required.  We'll talk about how this can be done later as the documentation progresses into more advanced features.</p>
 
 <!-- EuShouldTest.creole -->
 
