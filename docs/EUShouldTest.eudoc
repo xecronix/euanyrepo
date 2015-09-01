@@ -28,7 +28,7 @@ include package_manager.e
 include std/pretty.e
 include eushouldtest.e
 
-function test_isInstalled()
+function confirm_isInstalled()
 	sequence installedPackage = "gcc"
 	sequence notInstalledPackage = "chinese-calendar"
 	sequence should
@@ -51,7 +51,7 @@ function test_isInstalled()
 	return pass
 end function
 
-confirmReport(test_isInstalled(), "test_isInstalled")
+confirmReport(confirm_isInstalled(), "confirm_isInstalled")
 totalsReport("test_package_manager")
 
 </eucode>
@@ -72,12 +72,12 @@ include eushouldtest.e
 The first line here is the library we're going to test.  The second includes pretty_print.  I use that to  create a string from a sequence.  And finally, we need the testing tools.  
 
 <eucode>
-function test_isInstalled()
+function confirm_isInstalled()
 </eucode>
 
-The function is named with "test_" and then the name of the function or procedure you intend to test.  It is often the case that the smallest unit of code you'll intend to test is a function or procedure.  So this naming convention makes it easy to see what this function is for.  It's a test and it's going to test the isInstalled function. 
+The function is named with "confirm_" and then the name of the function or procedure you intend to test.  It is often the case that the smallest unit of code you'll intend to test is a function or procedure.  So this naming convention makes it easy to see what this function is for.  It's a test and it's going to test the isInstalled function. 
 
-One thing you should note about this test is that it does not take any arguments.  There are as many opinions on how to write good tests as there are developers writing tests.  I'm of the opinion that a good test needs no data from any source outside of the function.  Or put another way, the test should know how to either create the data it needs or go get the data it needs to perform the test.  This is why test_ functions take in no arguments.  This idea is common among several testing tools.  
+One thing you should note about this test is that it does not take any arguments.  There are as many opinions on how to write good tests as there are developers writing tests.  I'm of the opinion that a good test needs no data from any source outside of the function.  Or put another way, the test should know how to either create the data it needs or go get the data it needs to perform the test.  This is why confirm_ functions take in no arguments.  This idea is common among several testing tools.  
 
 <eucode>
 sequence installedPackage = "gcc"
@@ -114,20 +114,20 @@ confirm(results, should, but)
 pass = pass and results
 </eucode>
 
-Notice that we want to perform a second confirm.  This time we want to confirm that the function will not report a success if it can't find a package.  So results is true (or rather not 0) if and only of isInstalled is 0.  Or in other words, isInstalled wasn't supposed to find the package.  So if it reports back that it could not find the package then it did what is was supposed to do.
+Notice that we want to perform a second confirm.  This time we want to confirm that the function will not report a success if it can't find a package.  So results is true (or rather not 0) if and only if isInstalled is 0.  Or in other words, isInstalled wasn't supposed to find the package.  So if it reports back that it could not find the package then it did what is was supposed to do.
 
 <eucode>
-confirmReport(test_isInstalled(), "test_isInstalled")
+confirmReport(confirm_isInstalled(), "confirm_isInstalled")
 totalsReport("test_package_manager")
 </eucode>
 
-After each test_ function called, you should call the confirmReport function.  This will print a message indicating that the test was complete, it's status, and reset some counters in preparation of the next test.  It will also be used to keep track of how many tests were run.  A call to the totalsReport is an indication that all tests in this file have been run.  This will print a nice report indicating how many tests passed or failed.
+After each confirm_ function called, you should call the confirmReport function.  This will print a message indicating that the test was complete, it's status, and reset some counters in preparation of the next test.  It will also be used to keep track of how many confirm calls were executed.  A call to the totalsReport is an indication that all tests in this file have been run.  This will print a nice report indicating how many tests passed or failed.
 <eucode>
 #!/usr/bin/env eui
 include package_manager.e 
 include std/pretty.e
 include eushouldtest.e
-function test_getPackageManagers()
+function confirm_getPackageManagers()
 	
 	sequence packMan = getPackageManagers()
 	sequence prettyPackMan = pretty_sprint(packMan,{3})
@@ -151,7 +151,7 @@ function test_getPackageManagers()
 	return pass
 end function
 
-function test_isInstalled()
+function confirm_isInstalled()
 	sequence installedPackage = "gcc"
 	sequence notInstalledPackage = "chinese-calendar"
 	sequence should
@@ -174,14 +174,14 @@ function test_isInstalled()
 	return pass
 end function
 
-confirmReport(test_getPackageManagers(), "test_getPackageManagers")
-confirmReport(test_isInstalled(), "test_isInstalled")
+confirmReport(confirm_getPackageManagers(), "confirm_getPackageManagers")
+confirmReport(confirm_isInstalled(), "confirm_isInstalled")
 totalsReport("test_package_manager")
 </eucode>
 
-A single test file can contain more than one test_ function.  
+A single test file can contain more than one confirm_ function.  
 
-Common to all testing paradigms I'm discussing, the test file is expected to be a stand alone executable program.  Just like any other Euphoria program, you can add or remove features as it suites your needs.  In an ideal world, I wouldn't want my tests files to become more complex than the structure I'm showing here.  There may be dozens of test_ functions in this file but the pattern I hope to keep consistent.  This pattern is: 
+Common to all testing paradigms I'm discussing, the test file is expected to be a stand alone executable program.  Just like any other Euphoria program, you can add or remove features as it suites your needs.  In an ideal world, I wouldn't want my tests files to become more complex than the structure I'm showing here.  There may be dozens of confirm_ functions in this file but the pattern I hope to keep consistent.  This pattern is: 
 
 * include the files/libs I want to test
 * write one or more tests.
@@ -190,7 +190,7 @@ Common to all testing paradigms I'm discussing, the test file is expected to be 
 * print a report
 * destroy any data created to run the test
 
-This pattern works very well for most small projects without introducing much in the way of complexity.  I'll define a small project as having 3 or less developers and 500 or less confirm calls.  But, this is the real world and not necessarily the ideal.  Additionally, sometimes small projects balloon into large ones.  So, you may want to implement other features in your tests.  For example, the ability to run a single test in a test file.  Or you may want to use test_ functions again in another test file.  I believe this system allows for the flexibility to implement these types of features if required.  We'll talk about how this can be done later as the documentation progresses into more advanced features.
+This pattern works very well for most small projects without introducing much in the way of complexity.  I'll define a small project as having 3 or less developers and 500 or less confirm calls.  But, this is the real world and not necessarily the ideal.  Additionally, sometimes small projects balloon into large ones.  So, you may want to implement other features in your tests.  For example, the ability to run a single test in a test file.  Or you may want to use confirm_ functions again in another test file.  I believe this system allows for the flexibility to implement these types of features if required.  We'll talk about how this can be done later as the documentation progresses into more advanced features.
 
 ==Running Tests
 Each test file should be an executable unit of code.  So there should be at least 2 ways to run tests.  The first is directly from the command line.  The second is via a 'make' file.  The advantage of a make file is that it's an easy way to make all your test files run in a automated fashion.  We'll talk more about this when we talk about integration testing.  Also, using make you can also control what exactly will happen in what order, establish dependencies, gracefully handle failures, build things you need, and so on.  Let's look at a simple Makefile that can be used to run these tests.  
@@ -212,10 +212,10 @@ And finnaly, let's look at an output.
 {{{
 PASS packMan should have a length greater than 0
 PASS packMan should know what yum is
-PASS Test test_getPackageManagers reporting [2] confirm calls with [2] passes and [0] failures
+PASS Test test_package_manager:confirm_getPackageManagers reporting [2] confirm calls with [2] passes and [0] failures
 PASS package gcc should be installed
 PASS package chinese-calendar should not be installed
-PASS Test test_isInstalled reporting [2] confirm calls with [2] passes and [0] failures
+PASS Test test_package_manager:confirm_isInstalled reporting [2] confirm calls with [2] passes and [0] failures
 PASS Ran a total of [2] tests in file test_package_manager. [2] passed and [0] failed
 }}}
 

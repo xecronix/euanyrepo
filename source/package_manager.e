@@ -28,6 +28,14 @@ public function getPackageManagers()
 	return retval
 end function
 
+public procedure removePackage(sequence package, sequence packageManagers)
+	--Todo Install package using any of the the package managers provided
+end procedure
+
+public procedure installPackage(sequence package, sequence packageManagers)
+	--Todo Install package using any of the the package managers provided
+end procedure
+
 function dnfQuery(sequence package, QUERY_TYPE queryType)
 	--trace(1)
 	atom retval = 0

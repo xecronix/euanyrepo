@@ -30,6 +30,14 @@ public procedure confirm(atom bool, sequence confirmWhat, sequence fail)
 	end if 	
 end procedure
 
+public procedure confirmReportOrAbort(atom bool, sequence testName, atom andResetCounts = 1)
+        confirmReport(bool, testName, andResetCounts)
+        if bool = 0 then
+		report(2, sprintf("ABORT %s failed and caused an abort\n", {testName}))
+		abort(1)
+        end if
+end procedure
+
 public procedure confirmReport(atom bool, sequence testName, atom andResetCounts = 1)
 	atom stdWhat = 1
 	sequence boolStr = {}

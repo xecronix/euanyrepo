@@ -34,77 +34,77 @@
 
 <p> This type of testing is often the easiest  to get started with when implementing a new project from scratch.  Let's look at an example of how to use EUShouldTest to perform unit testing.</p>
 
-<pre class="examplecode"><font color="#330033">#!/usr/bin/env eui</font>
-<font color="#0000FF">include </font><font color="#330033">package_manager.e </font>
-<font color="#0000FF">include </font><font color="#330033">std/pretty.e</font>
-<font color="#0000FF">include </font><font color="#330033">eushouldtest.e</font>
+<pre class="examplecode"><span style="color:#330033;">#!/usr/bin/env eui</span>
+<span style="color:#0000FF;">include </span><span style="color:#330033;">package_manager.e </span>
+<span style="color:#0000FF;">include </span><span style="color:#330033;">std/pretty.e</span>
+<span style="color:#0000FF;">include </span><span style="color:#330033;">eushouldtest.e</span>
 
-<font color="#0000FF">function </font><font color="#330033">test_isInstalled</font><font color="#880033">()</font>
-<font color="#0000FF">	sequence </font><font color="#330033">installedPackage = </font><font color="#330033">"gcc"</font>
-<font color="#0000FF">	sequence </font><font color="#330033">notInstalledPackage = </font><font color="#330033">"chinese-calendar"</font>
-<font color="#0000FF">	sequence </font><font color="#330033">should</font>
-<font color="#0000FF">	sequence </font><font color="#330033">but</font>
-<font color="#0000FF">	atom </font><font color="#330033">results</font>
-<font color="#0000FF">	atom </font><font color="#330033">pass = 1</font>
+<span style="color:#0000FF;">function </span><span style="color:#330033;">confirm_isInstalled</span><span style="color:#880033;">()</span>
+<span style="color:#0000FF;">	sequence </span><span style="color:#330033;">installedPackage = </span><span style="color:#330033;">"gcc"</span>
+<span style="color:#0000FF;">	sequence </span><span style="color:#330033;">notInstalledPackage = </span><span style="color:#330033;">"chinese-calendar"</span>
+<span style="color:#0000FF;">	sequence </span><span style="color:#330033;">should</span>
+<span style="color:#0000FF;">	sequence </span><span style="color:#330033;">but</span>
+<span style="color:#0000FF;">	atom </span><span style="color:#330033;">results</span>
+<span style="color:#0000FF;">	atom </span><span style="color:#330033;">pass = 1</span>
 	
-<font color="#330033">	should = </font><font color="#0000FF">sprintf</font><font color="#880033">(</font><font color="#330033">"package %s should be installed"</font><font color="#330033">,  </font><font color="#993333">{</font><font color="#330033">installedPackage</font><font color="#993333">}</font><font color="#880033">)</font>
-<font color="#330033">	but = </font><font color="#330033">"but, package_manager isInstalled couldn't find it."</font>
-<font color="#330033">	results = isInstalled</font><font color="#880033">(</font><font color="#330033">installedPackage</font><font color="#880033">) </font><font color="#330033">= 1</font>
-<font color="#330033">	confirm</font><font color="#880033">(</font><font color="#330033">results, should, but</font><font color="#880033">)</font>
-<font color="#330033">	pass = pass </font><font color="#0000FF">and </font><font color="#330033">results</font>
+<span style="color:#330033;">	should = </span><span style="color:#0000FF;">sprintf</span><span style="color:#880033;">(</span><span style="color:#330033;">"package %s should be installed"</span><span style="color:#330033;">,  </span><span style="color:#993333;">{</span><span style="color:#330033;">installedPackage</span><span style="color:#993333;">}</span><span style="color:#880033;">)</span>
+<span style="color:#330033;">	but = </span><span style="color:#330033;">"but, package_manager isInstalled couldn't find it."</span>
+<span style="color:#330033;">	results = isInstalled</span><span style="color:#880033;">(</span><span style="color:#330033;">installedPackage</span><span style="color:#880033;">) </span><span style="color:#330033;">= 1</span>
+<span style="color:#330033;">	confirm</span><span style="color:#880033;">(</span><span style="color:#330033;">results, should, but</span><span style="color:#880033;">)</span>
+<span style="color:#330033;">	pass = pass </span><span style="color:#0000FF;">and </span><span style="color:#330033;">results</span>
 	
-<font color="#330033">	should = </font><font color="#0000FF">sprintf</font><font color="#880033">(</font><font color="#330033">"package %s should not be installed"</font><font color="#330033">,  </font><font color="#993333">{</font><font color="#330033">notInstalledPackage</font><font color="#993333">}</font><font color="#880033">)</font>
-<font color="#330033">	but = </font><font color="#330033">"but, package_manager claims to have found it."</font>
-<font color="#330033">	results = isInstalled</font><font color="#880033">(</font><font color="#330033">notInstalledPackage</font><font color="#880033">) </font><font color="#330033">= 0</font>
-<font color="#330033">	confirm</font><font color="#880033">(</font><font color="#330033">results, should, but</font><font color="#880033">)</font>
-<font color="#330033">	pass = pass </font><font color="#0000FF">and </font><font color="#330033">results</font>
+<span style="color:#330033;">	should = </span><span style="color:#0000FF;">sprintf</span><span style="color:#880033;">(</span><span style="color:#330033;">"package %s should not be installed"</span><span style="color:#330033;">,  </span><span style="color:#993333;">{</span><span style="color:#330033;">notInstalledPackage</span><span style="color:#993333;">}</span><span style="color:#880033;">)</span>
+<span style="color:#330033;">	but = </span><span style="color:#330033;">"but, package_manager claims to have found it."</span>
+<span style="color:#330033;">	results = isInstalled</span><span style="color:#880033;">(</span><span style="color:#330033;">notInstalledPackage</span><span style="color:#880033;">) </span><span style="color:#330033;">= 0</span>
+<span style="color:#330033;">	confirm</span><span style="color:#880033;">(</span><span style="color:#330033;">results, should, but</span><span style="color:#880033;">)</span>
+<span style="color:#330033;">	pass = pass </span><span style="color:#0000FF;">and </span><span style="color:#330033;">results</span>
 	
-<font color="#0000FF">	return </font><font color="#330033">pass</font>
-<font color="#0000FF">end function</font>
+<span style="color:#0000FF;">	return </span><span style="color:#330033;">pass</span>
+<span style="color:#0000FF;">end function</span>
 
-<font color="#330033">confirmReport</font><font color="#880033">(</font><font color="#330033">test_isInstalled</font><font color="#993333">()</font><font color="#330033">, </font><font color="#330033">"test_isInstalled"</font><font color="#880033">)</font>
-<font color="#330033">totalsReport</font><font color="#880033">(</font><font color="#330033">"test_package_manager"</font><font color="#880033">)</font>
+<span style="color:#330033;">confirmReport</span><span style="color:#880033;">(</span><span style="color:#330033;">confirm_isInstalled</span><span style="color:#993333;">()</span><span style="color:#330033;">, </span><span style="color:#330033;">"confirm_isInstalled"</span><span style="color:#880033;">)</span>
+<span style="color:#330033;">totalsReport</span><span style="color:#880033;">(</span><span style="color:#330033;">"test_package_manager"</span><span style="color:#880033;">)</span>
 
 </pre>
 
 <p> Let's break this down line by line so we can see exactly what's going on in this code.</p>
 
-<pre class="examplecode"><font color="#330033">#!/usr/bin/env eui</font>
+<pre class="examplecode"><span style="color:#330033;">#!/usr/bin/env eui</span>
 </pre>
 
 <p> The code is targeted at a Linux environment.  This comment is a shell comment needed to make the script executable. </p>
 
-<pre class="examplecode"><font color="#0000FF">include </font><font color="#330033">package_manager.e</font>
-<font color="#0000FF">include </font><font color="#330033">std/pretty.e</font>
-<font color="#0000FF">include </font><font color="#330033">eushouldtest.e</font>
+<pre class="examplecode"><span style="color:#0000FF;">include </span><span style="color:#330033;">package_manager.e</span>
+<span style="color:#0000FF;">include </span><span style="color:#330033;">std/pretty.e</span>
+<span style="color:#0000FF;">include </span><span style="color:#330033;">eushouldtest.e</span>
 </pre>
 
 <p> The first line here is the library we're going to test.  The second includes pretty_print.  I use that to  create a string from a sequence.  And finally, we need the testing tools.  </p>
 
-<pre class="examplecode"><font color="#0000FF">function </font><font color="#330033">test_isInstalled</font><font color="#880033">()</font>
+<pre class="examplecode"><span style="color:#0000FF;">function </span><span style="color:#330033;">confirm_isInstalled</span><span style="color:#880033;">()</span>
 </pre>
 
-<p> The function is named with "test_" and then the name of the function or procedure you intend to test.  It is often the case that the smallest unit of code you'll intend to test is a function or procedure.  So this naming convention makes it easy to see what this function is for.  It's a test and it's going to test the isInstalled function. </p>
+<p> The function is named with "confirm_" and then the name of the function or procedure you intend to test.  It is often the case that the smallest unit of code you'll intend to test is a function or procedure.  So this naming convention makes it easy to see what this function is for.  It's a test and it's going to test the isInstalled function. </p>
 
-<p> One thing you should note about this test is that it does not take any arguments.  There are as many opinions on how to write good tests as there are developers writing tests.  I'm of the opinion that a good test needs no data from any source outside of the function.  Or put another way, the test should know how to either create the data it needs or go get the data it needs to perform the test.  This is why test_ functions take in no arguments.  This idea is common among several testing tools.  </p>
+<p> One thing you should note about this test is that it does not take any arguments.  There are as many opinions on how to write good tests as there are developers writing tests.  I'm of the opinion that a good test needs no data from any source outside of the function.  Or put another way, the test should know how to either create the data it needs or go get the data it needs to perform the test.  This is why confirm_ functions take in no arguments.  This idea is common among several testing tools.  </p>
 
-<pre class="examplecode"><font color="#0000FF">sequence </font><font color="#330033">installedPackage = </font><font color="#330033">"gcc"</font>
-<font color="#0000FF">sequence </font><font color="#330033">notInstalledPackage = </font><font color="#330033">"chinese-calendar"</font>
-<font color="#0000FF">sequence </font><font color="#330033">should</font>
-<font color="#0000FF">sequence </font><font color="#330033">but</font>
-<font color="#0000FF">atom </font><font color="#330033">results</font>
-<font color="#0000FF">atom </font><font color="#330033">pass = 1</font>
+<pre class="examplecode"><span style="color:#0000FF;">sequence </span><span style="color:#330033;">installedPackage = </span><span style="color:#330033;">"gcc"</span>
+<span style="color:#0000FF;">sequence </span><span style="color:#330033;">notInstalledPackage = </span><span style="color:#330033;">"chinese-calendar"</span>
+<span style="color:#0000FF;">sequence </span><span style="color:#330033;">should</span>
+<span style="color:#0000FF;">sequence </span><span style="color:#330033;">but</span>
+<span style="color:#0000FF;">atom </span><span style="color:#330033;">results</span>
+<span style="color:#0000FF;">atom </span><span style="color:#330033;">pass = 1</span>
 </pre>
 
 <p> Here I'm creating the data I need to do this test.  I'm going to look for the 2 packages gcc and chinese-calendar.  On my computer I'm certain that one is installed and the other package is not installed.  If I wanted to create a more robust test I could execute some combination of shell commands to find one package that is installed and to find one that isn't.  In fact, that's what I had to do to come up with these to choices.  But since I'm relatively certain that any machine that I'm personally going to run this test on will have gcc and will not have chinese-calendar, I'll choose to keep these test this simple.  At least until such time as this decision no longer suites me.  </p>
 
 <p> The next four lines I define some variables that I intend to use during testing.  I personally like the way these variables will read in the context of the code.  The pass variable will be our return value.</p>
 
-<pre class="examplecode"><font color="#330033">should = </font><font color="#0000FF">sprintf</font><font color="#880033">(</font><font color="#330033">"package %s should be installed"</font><font color="#330033">,  </font><font color="#993333">{</font><font color="#330033">installedPackage</font><font color="#993333">}</font><font color="#880033">)</font>
-<font color="#330033">but = </font><font color="#330033">"but, package_manager isInstalled couldn't find it."</font>
-<font color="#330033">results = isInstalled</font><font color="#880033">(</font><font color="#330033">installedPackage</font><font color="#880033">) </font><font color="#330033">= 1</font>
-<font color="#330033">confirm</font><font color="#880033">(</font><font color="#330033">results, should, but</font><font color="#880033">)</font>
-<font color="#330033">pass = pass </font><font color="#0000FF">and </font><font color="#330033">results</font>
+<pre class="examplecode"><span style="color:#330033;">should = </span><span style="color:#0000FF;">sprintf</span><span style="color:#880033;">(</span><span style="color:#330033;">"package %s should be installed"</span><span style="color:#330033;">,  </span><span style="color:#993333;">{</span><span style="color:#330033;">installedPackage</span><span style="color:#993333;">}</span><span style="color:#880033;">)</span>
+<span style="color:#330033;">but = </span><span style="color:#330033;">"but, package_manager isInstalled couldn't find it."</span>
+<span style="color:#330033;">results = isInstalled</span><span style="color:#880033;">(</span><span style="color:#330033;">installedPackage</span><span style="color:#880033;">) </span><span style="color:#330033;">= 1</span>
+<span style="color:#330033;">confirm</span><span style="color:#880033;">(</span><span style="color:#330033;">results, should, but</span><span style="color:#880033;">)</span>
+<span style="color:#330033;">pass = pass </span><span style="color:#0000FF;">and </span><span style="color:#330033;">results</span>
 </pre>
 
 <p> We are going to confirm the function does or doesn't do something.  A single test may confirm many things in order to determine that the unit of code is tested to be correct.  The variable "should" contains information intended for a log or report about what should be going on now.  The variable "but" contains information stating what should have happened didn't actually happen.  And the variable "results" should always evaluate to a 0 to indicate a failure or a non zero integer to indicate that there was no failure.   </p>
@@ -113,80 +113,80 @@
 
 <p> Finally, we'll keep track of whether or not we have any failures.  In this case, we don't want to do anything about a failure, but in other tests we may choose to abort testing, manipulate data, clean up resources or other things.  But in this ideal case it's safe to just continue testing.</p>
 
-<pre class="examplecode"><font color="#330033">should = </font><font color="#0000FF">sprintf</font><font color="#880033">(</font><font color="#330033">"package %s should not be installed"</font><font color="#330033">,  </font><font color="#993333">{</font><font color="#330033">notInstalledPackage</font><font color="#993333">}</font><font color="#880033">)</font>
-<font color="#330033">but = </font><font color="#330033">"but, package_manager claims to have found it."</font>
-<font color="#330033">results = isInstalled</font><font color="#880033">(</font><font color="#330033">notInstalledPackage</font><font color="#880033">) </font><font color="#330033">= 0 </font><font color="#FF0055">-- results will be true if package is not installed</font>
-<font color="#330033">confirm</font><font color="#880033">(</font><font color="#330033">results, should, but</font><font color="#880033">)</font>
-<font color="#330033">pass = pass </font><font color="#0000FF">and </font><font color="#330033">results</font>
+<pre class="examplecode"><span style="color:#330033;">should = </span><span style="color:#0000FF;">sprintf</span><span style="color:#880033;">(</span><span style="color:#330033;">"package %s should not be installed"</span><span style="color:#330033;">,  </span><span style="color:#993333;">{</span><span style="color:#330033;">notInstalledPackage</span><span style="color:#993333;">}</span><span style="color:#880033;">)</span>
+<span style="color:#330033;">but = </span><span style="color:#330033;">"but, package_manager claims to have found it."</span>
+<span style="color:#330033;">results = isInstalled</span><span style="color:#880033;">(</span><span style="color:#330033;">notInstalledPackage</span><span style="color:#880033;">) </span><span style="color:#330033;">= 0 </span><span style="color:#FF0055;">-- results will be true if package is not installed</span>
+<span style="color:#330033;">confirm</span><span style="color:#880033;">(</span><span style="color:#330033;">results, should, but</span><span style="color:#880033;">)</span>
+<span style="color:#330033;">pass = pass </span><span style="color:#0000FF;">and </span><span style="color:#330033;">results</span>
 </pre>
 
-<p> Notice that we want to perform a second confirm.  This time we want to confirm that the function will not report a success if it can't find a package.  So results is true (or rather not 0) if and only of isInstalled is 0.  Or in other words, isInstalled wasn't supposed to find the package.  So if it reports back that it could not find the package then it did what is was supposed to do.</p>
+<p> Notice that we want to perform a second confirm.  This time we want to confirm that the function will not report a success if it can't find a package.  So results is true (or rather not 0) if and only if isInstalled is 0.  Or in other words, isInstalled wasn't supposed to find the package.  So if it reports back that it could not find the package then it did what is was supposed to do.</p>
 
-<pre class="examplecode"><font color="#330033">confirmReport</font><font color="#880033">(</font><font color="#330033">test_isInstalled</font><font color="#993333">()</font><font color="#330033">, </font><font color="#330033">"test_isInstalled"</font><font color="#880033">)</font>
-<font color="#330033">totalsReport</font><font color="#880033">(</font><font color="#330033">"test_package_manager"</font><font color="#880033">)</font>
+<pre class="examplecode"><span style="color:#330033;">confirmReport</span><span style="color:#880033;">(</span><span style="color:#330033;">confirm_isInstalled</span><span style="color:#993333;">()</span><span style="color:#330033;">, </span><span style="color:#330033;">"confirm_isInstalled"</span><span style="color:#880033;">)</span>
+<span style="color:#330033;">totalsReport</span><span style="color:#880033;">(</span><span style="color:#330033;">"test_package_manager"</span><span style="color:#880033;">)</span>
 </pre>
 
-<p> After each test_ function called, you should call the confirmReport function.  This will print a message indicating that the test was complete, it's status, and reset some counters in preparation of the next test.  It will also be used to keep track of how many tests were run.  A call to the totalsReport is an indication that all tests in this file have been run.  This will print a nice report indicating how many tests passed or failed. </p>
+<p> After each confirm_ function called, you should call the confirmReport function.  This will print a message indicating that the test was complete, it's status, and reset some counters in preparation of the next test.  It will also be used to keep track of how many confirm calls were executed.  A call to the totalsReport is an indication that all tests in this file have been run.  This will print a nice report indicating how many tests passed or failed. </p>
 
-<pre class="examplecode"><font color="#330033">#!/usr/bin/env eui</font>
-<font color="#0000FF">include </font><font color="#330033">package_manager.e </font>
-<font color="#0000FF">include </font><font color="#330033">std/pretty.e</font>
-<font color="#0000FF">include </font><font color="#330033">eushouldtest.e</font>
-<font color="#0000FF">function </font><font color="#330033">test_getPackageManagers</font><font color="#880033">()</font>
+<pre class="examplecode"><span style="color:#330033;">#!/usr/bin/env eui</span>
+<span style="color:#0000FF;">include </span><span style="color:#330033;">package_manager.e </span>
+<span style="color:#0000FF;">include </span><span style="color:#330033;">std/pretty.e</span>
+<span style="color:#0000FF;">include </span><span style="color:#330033;">eushouldtest.e</span>
+<span style="color:#0000FF;">function </span><span style="color:#330033;">confirm_getPackageManagers</span><span style="color:#880033;">()</span>
 	
-<font color="#0000FF">	sequence </font><font color="#330033">packMan = getPackageManagers</font><font color="#880033">()</font>
-<font color="#0000FF">	sequence </font><font color="#330033">prettyPackMan = pretty_sprint</font><font color="#880033">(</font><font color="#330033">packMan,</font><font color="#993333">{</font><font color="#330033">3</font><font color="#993333">}</font><font color="#880033">)</font>
-<font color="#0000FF">	sequence </font><font color="#330033">should</font>
-<font color="#0000FF">	sequence </font><font color="#330033">but</font>
-<font color="#0000FF">	atom </font><font color="#330033">results</font>
-<font color="#0000FF">	atom </font><font color="#330033">pass = 1</font>
+<span style="color:#0000FF;">	sequence </span><span style="color:#330033;">packMan = getPackageManagers</span><span style="color:#880033;">()</span>
+<span style="color:#0000FF;">	sequence </span><span style="color:#330033;">prettyPackMan = pretty_sprint</span><span style="color:#880033;">(</span><span style="color:#330033;">packMan,</span><span style="color:#993333;">{</span><span style="color:#330033;">3</span><span style="color:#993333;">}</span><span style="color:#880033;">)</span>
+<span style="color:#0000FF;">	sequence </span><span style="color:#330033;">should</span>
+<span style="color:#0000FF;">	sequence </span><span style="color:#330033;">but</span>
+<span style="color:#0000FF;">	atom </span><span style="color:#330033;">results</span>
+<span style="color:#0000FF;">	atom </span><span style="color:#330033;">pass = 1</span>
 	
-<font color="#330033">	should = </font><font color="#330033">"packMan should have a length greater than 0"</font>
-<font color="#330033">	but = </font><font color="#330033">"but, packMan was of length 0"</font>
-<font color="#330033">	results = </font><font color="#0000FF">length</font><font color="#880033">(</font><font color="#330033">packMan</font><font color="#880033">)</font>
-<font color="#330033">	confirm</font><font color="#880033">(</font><font color="#330033">results, should, but</font><font color="#880033">)</font>
-<font color="#330033">	pass = pass </font><font color="#0000FF">and </font><font color="#330033">results</font>
+<span style="color:#330033;">	should = </span><span style="color:#330033;">"packMan should have a length greater than 0"</span>
+<span style="color:#330033;">	but = </span><span style="color:#330033;">"but, packMan was of length 0"</span>
+<span style="color:#330033;">	results = </span><span style="color:#0000FF;">length</span><span style="color:#880033;">(</span><span style="color:#330033;">packMan</span><span style="color:#880033;">)</span>
+<span style="color:#330033;">	confirm</span><span style="color:#880033;">(</span><span style="color:#330033;">results, should, but</span><span style="color:#880033;">)</span>
+<span style="color:#330033;">	pass = pass </span><span style="color:#0000FF;">and </span><span style="color:#330033;">results</span>
 	
-<font color="#330033">	should = </font><font color="#330033">"packMan should know what yum is"</font>
-<font color="#330033">	but = </font><font color="#0000FF">sprintf</font><font color="#880033">(</font><font color="#330033">"but, packMan does not [%s]"</font><font color="#330033">, </font><font color="#993333">{</font><font color="#330033">prettyPackMan</font><font color="#993333">}</font><font color="#880033">)</font>
-<font color="#330033">	results = </font><font color="#0000FF">match</font><font color="#880033">(</font><font color="#330033">"yum"</font><font color="#330033">, prettyPackMan</font><font color="#880033">)</font>
-<font color="#330033">	confirm</font><font color="#880033">(</font><font color="#330033">results, should, but</font><font color="#880033">)</font>
-<font color="#330033">	pass = pass </font><font color="#0000FF">and </font><font color="#330033">results</font>
+<span style="color:#330033;">	should = </span><span style="color:#330033;">"packMan should know what yum is"</span>
+<span style="color:#330033;">	but = </span><span style="color:#0000FF;">sprintf</span><span style="color:#880033;">(</span><span style="color:#330033;">"but, packMan does not [%s]"</span><span style="color:#330033;">, </span><span style="color:#993333;">{</span><span style="color:#330033;">prettyPackMan</span><span style="color:#993333;">}</span><span style="color:#880033;">)</span>
+<span style="color:#330033;">	results = </span><span style="color:#0000FF;">match</span><span style="color:#880033;">(</span><span style="color:#330033;">"yum"</span><span style="color:#330033;">, prettyPackMan</span><span style="color:#880033;">)</span>
+<span style="color:#330033;">	confirm</span><span style="color:#880033;">(</span><span style="color:#330033;">results, should, but</span><span style="color:#880033;">)</span>
+<span style="color:#330033;">	pass = pass </span><span style="color:#0000FF;">and </span><span style="color:#330033;">results</span>
 	
-<font color="#0000FF">	return </font><font color="#330033">pass</font>
-<font color="#0000FF">end function</font>
+<span style="color:#0000FF;">	return </span><span style="color:#330033;">pass</span>
+<span style="color:#0000FF;">end function</span>
 
-<font color="#0000FF">function </font><font color="#330033">test_isInstalled</font><font color="#880033">()</font>
-<font color="#0000FF">	sequence </font><font color="#330033">installedPackage = </font><font color="#330033">"gcc"</font>
-<font color="#0000FF">	sequence </font><font color="#330033">notInstalledPackage = </font><font color="#330033">"chinese-calendar"</font>
-<font color="#0000FF">	sequence </font><font color="#330033">should</font>
-<font color="#0000FF">	sequence </font><font color="#330033">but</font>
-<font color="#0000FF">	atom </font><font color="#330033">results</font>
-<font color="#0000FF">	atom </font><font color="#330033">pass = 1</font>
+<span style="color:#0000FF;">function </span><span style="color:#330033;">confirm_isInstalled</span><span style="color:#880033;">()</span>
+<span style="color:#0000FF;">	sequence </span><span style="color:#330033;">installedPackage = </span><span style="color:#330033;">"gcc"</span>
+<span style="color:#0000FF;">	sequence </span><span style="color:#330033;">notInstalledPackage = </span><span style="color:#330033;">"chinese-calendar"</span>
+<span style="color:#0000FF;">	sequence </span><span style="color:#330033;">should</span>
+<span style="color:#0000FF;">	sequence </span><span style="color:#330033;">but</span>
+<span style="color:#0000FF;">	atom </span><span style="color:#330033;">results</span>
+<span style="color:#0000FF;">	atom </span><span style="color:#330033;">pass = 1</span>
 	
-<font color="#330033">	should = </font><font color="#0000FF">sprintf</font><font color="#880033">(</font><font color="#330033">"package %s should be installed"</font><font color="#330033">,  </font><font color="#993333">{</font><font color="#330033">installedPackage</font><font color="#993333">}</font><font color="#880033">)</font>
-<font color="#330033">	but = </font><font color="#330033">"but, package_manager isInstalled couldn't find it."</font>
-<font color="#330033">	results = isInstalled</font><font color="#880033">(</font><font color="#330033">installedPackage</font><font color="#880033">) </font><font color="#330033">= 1</font>
-<font color="#330033">	confirm</font><font color="#880033">(</font><font color="#330033">results, should, but</font><font color="#880033">)</font>
-<font color="#330033">	pass = pass </font><font color="#0000FF">and </font><font color="#330033">results</font>
+<span style="color:#330033;">	should = </span><span style="color:#0000FF;">sprintf</span><span style="color:#880033;">(</span><span style="color:#330033;">"package %s should be installed"</span><span style="color:#330033;">,  </span><span style="color:#993333;">{</span><span style="color:#330033;">installedPackage</span><span style="color:#993333;">}</span><span style="color:#880033;">)</span>
+<span style="color:#330033;">	but = </span><span style="color:#330033;">"but, package_manager isInstalled couldn't find it."</span>
+<span style="color:#330033;">	results = isInstalled</span><span style="color:#880033;">(</span><span style="color:#330033;">installedPackage</span><span style="color:#880033;">) </span><span style="color:#330033;">= 1</span>
+<span style="color:#330033;">	confirm</span><span style="color:#880033;">(</span><span style="color:#330033;">results, should, but</span><span style="color:#880033;">)</span>
+<span style="color:#330033;">	pass = pass </span><span style="color:#0000FF;">and </span><span style="color:#330033;">results</span>
 	
-<font color="#330033">	should = </font><font color="#0000FF">sprintf</font><font color="#880033">(</font><font color="#330033">"package %s should not be installed"</font><font color="#330033">,  </font><font color="#993333">{</font><font color="#330033">notInstalledPackage</font><font color="#993333">}</font><font color="#880033">)</font>
-<font color="#330033">	but = </font><font color="#330033">"but, package_manager claims to have found it."</font>
-<font color="#330033">	results = isInstalled</font><font color="#880033">(</font><font color="#330033">notInstalledPackage</font><font color="#880033">) </font><font color="#330033">= 0</font>
-<font color="#330033">	confirm</font><font color="#880033">(</font><font color="#330033">results, should, but</font><font color="#880033">)</font>
-<font color="#330033">	pass = pass </font><font color="#0000FF">and </font><font color="#330033">results</font>
+<span style="color:#330033;">	should = </span><span style="color:#0000FF;">sprintf</span><span style="color:#880033;">(</span><span style="color:#330033;">"package %s should not be installed"</span><span style="color:#330033;">,  </span><span style="color:#993333;">{</span><span style="color:#330033;">notInstalledPackage</span><span style="color:#993333;">}</span><span style="color:#880033;">)</span>
+<span style="color:#330033;">	but = </span><span style="color:#330033;">"but, package_manager claims to have found it."</span>
+<span style="color:#330033;">	results = isInstalled</span><span style="color:#880033;">(</span><span style="color:#330033;">notInstalledPackage</span><span style="color:#880033;">) </span><span style="color:#330033;">= 0</span>
+<span style="color:#330033;">	confirm</span><span style="color:#880033;">(</span><span style="color:#330033;">results, should, but</span><span style="color:#880033;">)</span>
+<span style="color:#330033;">	pass = pass </span><span style="color:#0000FF;">and </span><span style="color:#330033;">results</span>
 	
-<font color="#0000FF">	return </font><font color="#330033">pass</font>
-<font color="#0000FF">end function</font>
+<span style="color:#0000FF;">	return </span><span style="color:#330033;">pass</span>
+<span style="color:#0000FF;">end function</span>
 
-<font color="#330033">confirmReport</font><font color="#880033">(</font><font color="#330033">test_getPackageManagers</font><font color="#993333">()</font><font color="#330033">, </font><font color="#330033">"test_getPackageManagers"</font><font color="#880033">)</font>
-<font color="#330033">confirmReport</font><font color="#880033">(</font><font color="#330033">test_isInstalled</font><font color="#993333">()</font><font color="#330033">, </font><font color="#330033">"test_isInstalled"</font><font color="#880033">)</font>
-<font color="#330033">totalsReport</font><font color="#880033">(</font><font color="#330033">"test_package_manager"</font><font color="#880033">)</font>
+<span style="color:#330033;">confirmReport</span><span style="color:#880033;">(</span><span style="color:#330033;">confirm_getPackageManagers</span><span style="color:#993333;">()</span><span style="color:#330033;">, </span><span style="color:#330033;">"confirm_getPackageManagers"</span><span style="color:#880033;">)</span>
+<span style="color:#330033;">confirmReport</span><span style="color:#880033;">(</span><span style="color:#330033;">confirm_isInstalled</span><span style="color:#993333;">()</span><span style="color:#330033;">, </span><span style="color:#330033;">"confirm_isInstalled"</span><span style="color:#880033;">)</span>
+<span style="color:#330033;">totalsReport</span><span style="color:#880033;">(</span><span style="color:#330033;">"test_package_manager"</span><span style="color:#880033;">)</span>
 </pre>
 
-<p> A single test file can contain more than one test_ function.  </p>
+<p> A single test file can contain more than one confirm_ function.  </p>
 
-<p> Common to all testing paradigms I'm discussing, the test file is expected to be a stand alone executable program.  Just like any other Euphoria program, you can add or remove features as it suites your needs.  In an ideal world, I wouldn't want my tests files to become more complex than the structure I'm showing here.  There may be dozens of test_ functions in this file but the pattern I hope to keep consistent.  This pattern is: </p>
+<p> Common to all testing paradigms I'm discussing, the test file is expected to be a stand alone executable program.  Just like any other Euphoria program, you can add or remove features as it suites your needs.  In an ideal world, I wouldn't want my tests files to become more complex than the structure I'm showing here.  There may be dozens of confirm_ functions in this file but the pattern I hope to keep consistent.  This pattern is: </p>
 <ul><li>include the files/libs I want to test
 </li><li>write one or more tests.
 </li><li>In each test confirm one or more "things" about the code behavior
@@ -194,7 +194,7 @@
 </li><li>print a report
 </li><li>destroy any data created to run the test
 </li></ul>
-<p>This pattern works very well for most small projects without introducing much in the way of complexity.  I'll define a small project as having 3 or less developers and 500 or less confirm calls.  But, this is the real world and not necessarily the ideal.  Additionally, sometimes small projects balloon into large ones.  So, you may want to implement other features in your tests.  For example, the ability to run a single test in a test file.  Or you may want to use test_ functions again in another test file.  I believe this system allows for the flexibility to implement these types of features if required.  We'll talk about how this can be done later as the documentation progresses into more advanced features.</p>
+<p>This pattern works very well for most small projects without introducing much in the way of complexity.  I'll define a small project as having 3 or less developers and 500 or less confirm calls.  But, this is the real world and not necessarily the ideal.  Additionally, sometimes small projects balloon into large ones.  So, you may want to implement other features in your tests.  For example, the ability to run a single test in a test file.  Or you may want to use confirm_ functions again in another test file.  I believe this system allows for the flexibility to implement these types of features if required.  We'll talk about how this can be done later as the documentation progresses into more advanced features.</p>
 
 <!-- EuShouldTest.creole -->
 
@@ -218,10 +218,10 @@ test_oshelper:
 <p> 
 <pre>PASS packMan should have a length greater than 0
 PASS packMan should know what yum is
-PASS Test test_getPackageManagers reporting [2] confirm calls with [2] passes and [0] failures
+PASS Test test_package_manager:confirm_getPackageManagers reporting [2] confirm calls with [2] passes and [0] failures
 PASS package gcc should be installed
 PASS package chinese-calendar should not be installed
-PASS Test test_isInstalled reporting [2] confirm calls with [2] passes and [0] failures
+PASS Test test_package_manager:confirm_isInstalled reporting [2] confirm calls with [2] passes and [0] failures
 PASS Ran a total of [2] tests in file test_package_manager. [2] passed and [0] failed
 </pre>
 
