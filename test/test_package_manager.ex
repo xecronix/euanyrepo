@@ -61,7 +61,7 @@ function confirm_installPackage()
 	should = sprintf("package %s should not already be installed",  {packageToInstall})
 	but = "but, package_manager claims to have found it. %s"
 	but = sprintf(but, "This package needs to be removed from the system before testing can continue.")
-	results = isInstalled(packageToInstall) = 0
+	results = not isInstalled(packageToInstall)
 	confirm(results, should, but)
 	pass = pass and results
 	
@@ -75,7 +75,7 @@ function confirm_installPackage()
 	should = sprintf("package %s should now be installed",  {packageToInstall})
 	but = "but, package_manager isInstalled couldn't find it."
 	installPackage(packageToInstall, packMan)
-	results = isInstalled(packageToInstall) = 1
+	results = isInstalled(packageToInstall)
 	confirm(results, should, but)
 	pass = pass and results
 	
@@ -107,7 +107,7 @@ function confirm_removePackage()
 	should = sprintf("package %s should now be removed",  {packageToRemove})
 	but = "but, package_manager claims it is still installed."
 	removePackage(packageToRemove, packMan)
-	results = isInstalled(packageToRemove) = 1
+	results = isInstalled(packageToRemove) = 0
 	confirm(results, should, but)
 	pass = pass and results
 	
